@@ -1,0 +1,39 @@
+{
+  "version": "0.1.0-beta.3",
+  "description": "Text diagram editor for the terminal",
+  "homepage": "https://github.com/pzoln/tg",
+  "license": "Apache-2.0",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/pzoln/tg/releases/download/tg-v0.1.0-beta.3/tg-v0.1.0-beta.3-x86_64-pc-windows-msvc.tar.gz",
+      "hash": "8cb22ba578f8205939bd3d1b46ff9303050abe2e2927930939de25cf35f74543",
+      "extract_dir": "tg-v0.1.0-beta.3-x86_64-pc-windows-msvc"
+    }
+  },
+  "bin": "tg.exe",
+  "checkver": {
+    "url": "https://api.github.com/repos/pzoln/tg/releases?per_page=1",
+    "jsonpath": "$[0].tag_name",
+    "regex": "^tg-v(.+)$"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/pzoln/tg/releases/download/tg-v$version/tg-v$version-x86_64-pc-windows-msvc.tar.gz",
+        "extract_dir": "tg-v$version-x86_64-pc-windows-msvc",
+        "hash": {
+          "url": "https://github.com/pzoln/tg/releases/download/tg-v$version/tg-v$version-SHA256SUMS.txt",
+          "find": "^([a-fA-F0-9]{64})\\s+tg-v$version-x86_64\\-pc\\-windows\\-msvc\\.tar\\.gz$"
+        }
+      },
+      "arm64": {
+        "url": "https://github.com/pzoln/tg/releases/download/tg-v$version/tg-v$version-aarch64-pc-windows-msvc.tar.gz",
+        "extract_dir": "tg-v$version-aarch64-pc-windows-msvc",
+        "hash": {
+          "url": "https://github.com/pzoln/tg/releases/download/tg-v$version/tg-v$version-SHA256SUMS.txt",
+          "find": "^([a-fA-F0-9]{64})\\s+tg-v$version-aarch64\\-pc\\-windows\\-msvc\\.tar\\.gz$"
+        }
+      }
+    }
+  }
+}

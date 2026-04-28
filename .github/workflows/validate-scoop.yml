@@ -1,0 +1,56 @@
+name: Validate Scoop Manifest
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "bucket/**/*.json"
+      - "scripts/update_manifest.rb"
+      - "justfile"
+      - ".github/workflows/validate-scoop.yml"
+  pull_request:
+    paths:
+      - "bucket/**/*.json"
+      - "scripts/update_manifest.rb"
+      - "justfile"
+      - ".github/workflows/validate-scoop.yml"
+
+jobs:
+  install-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Scoop
+        shell: powershell
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+          Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+          $scoopShims = Join-Path $env:USERPROFILE "scoop\shims"
+          $scoopBin = Join-Path $env:USERPROFILE "scoop\apps\scoop\current\bin"
+
+          $scoopShims | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          $scoopBin | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+          & (Join-Path $scoopShims "scoop.cmd") --version
+
+      - name: Validate manifest JSON
+        shell: powershell
+        run: |
+          Get-Content "$env:GITHUB_WORKSPACE\bucket\tg.json" | ConvertFrom-Json | Out-Null
+
+      - name: Install tg from checked-out manifest
+        shell: powershell
+        run: |
+          scoop install "$env:GITHUB_WORKSPACE\bucket\tg.json"
+
+      - name: Verify tg shim
+        shell: powershell
+        run: |
+          $command = Get-Command tg -ErrorAction Stop
+          Write-Host "tg shim: $($command.Source)"
+          scoop which tg
+          scoop prefix tg
