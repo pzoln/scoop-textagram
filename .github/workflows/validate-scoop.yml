@@ -47,10 +47,12 @@ jobs:
         run: |
           scoop install "$env:GITHUB_WORKSPACE\bucket\tg.json"
 
-      - name: Verify tg shim
+      - name: Verify tg shim and execution
         shell: powershell
         run: |
           $command = Get-Command tg -ErrorAction Stop
           Write-Host "tg shim: $($command.Source)"
           scoop which tg
           scoop prefix tg
+          tg --version
+          tg --help
