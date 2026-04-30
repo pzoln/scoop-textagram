@@ -1,13 +1,13 @@
 {
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0-beta.5",
   "description": "Text diagram editor for the terminal",
   "homepage": "https://github.com/pzoln/tg",
   "license": "Apache-2.0",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/pzoln/tg/releases/download/tg-v0.1.0-beta.3/tg-v0.1.0-beta.3-x86_64-pc-windows-msvc.tar.gz",
-      "hash": "8cb22ba578f8205939bd3d1b46ff9303050abe2e2927930939de25cf35f74543",
-      "extract_dir": "tg-v0.1.0-beta.3-x86_64-pc-windows-msvc"
+      "url": "https://github.com/pzoln/tg/releases/download/tg-v0.1.0-beta.5/tg-v0.1.0-beta.5-x86_64-pc-windows-msvc.tar.gz",
+      "hash": "0765e59ae06b253090b68fcc0b079045f0fee3b35ed19f430876b8d54b5b2f20",
+      "extract_dir": "tg-v0.1.0-beta.5-x86_64-pc-windows-msvc"
     }
   },
   "bin": "tg.exe",
